@@ -1,30 +1,28 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Component } from 'react';
 
-export class ContactList extends Component {
-  onDeleteBtn = event => {
-    this.props.delateContact(event.currentTarget.id);
+export const ContactList = ({ data, delateContact }) => {
+  const onDeleteBtn = event => {
+    delateContact(event.currentTarget.id);
   };
-  render() {
-    if (this.props.data.length > 0) {
-      return (
-        <ul>
-          {this.props.data.map(({ id, name, number }) => {
-            return (
-              <ContactItem key={id}>
-                {name} : {number}
-                <DeleteBtn id={id} type="button" onClick={this.onDeleteBtn}>
-                  delete
-                </DeleteBtn>
-              </ContactItem>
-            );
-          })}
-        </ul>
-      );
-    }
+
+  if (data.length > 0) {
+    return (
+      <ul>
+        {data.map(({ id, name, number }) => {
+          return (
+            <ContactItem key={id}>
+              {name} : {number}
+              <DeleteBtn id={id} type="button" onClick={onDeleteBtn}>
+                delete
+              </DeleteBtn>
+            </ContactItem>
+          );
+        })}
+      </ul>
+    );
   }
-}
+};
 
 ContactList.propTypes = {
   delateContact: PropTypes.func,
